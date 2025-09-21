@@ -1,0 +1,53 @@
+plugins {
+    id 'java-library'
+}
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.4'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = "com.fhk"
+version = "1.0.0"
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // jakarta.persistence, hibernate, spring-data-jpa
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+
+    // ConfigurationProperties 처리
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+    // Lombok
+    compileOnly "org.projectlombok:lombok:1.18.38"
+    annotationProcessor "org.projectlombok:lombok:1.18.38"
+    testCompileOnly "org.projectlombok:lombok:1.18.38"
+    testAnnotationProcessor "org.projectlombok:lombok:1.18.38"
+
+    // JUnit
+    // 모듈인데 빼도 되는건지 모르겠음 일단 넣음
+    testImplementation platform("org.junit:junit-bom:5.10.0")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+}
+
+tasks.named("bootJar") {
+    enabled = false
+}
+
+tasks.named("jar") {
+    enabled = true
+}
+
+test {
+    useJUnitPlatform()
+}
