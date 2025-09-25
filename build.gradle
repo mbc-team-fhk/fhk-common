@@ -1,15 +1,17 @@
 plugins {
     id 'java-library'
-}
-
-plugins {
-    id 'java'
     id 'org.springframework.boot' version '3.5.4'
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = "com.fhk"
 version = "1.0.0"
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 configurations {
     compileOnly {
@@ -25,6 +27,9 @@ dependencies {
     // jakarta.persistence, hibernate, spring-data-jpa
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
 
+    // Api, Exception 관련
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
     // ConfigurationProperties 처리
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
@@ -38,6 +43,9 @@ dependencies {
     // 모듈인데 빼도 되는건지 모르겠음 일단 넣음
     testImplementation platform("org.junit:junit-bom:5.10.0")
     testImplementation "org.junit.jupiter:junit-jupiter"
+
+    // 스프링 시큐리티
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 }
 
 tasks.named("bootJar") {
@@ -48,6 +56,6 @@ tasks.named("jar") {
     enabled = true
 }
 
-test {
-    useJUnitPlatform()
-}
+//test {
+//    useJUnitPlatform()
+//}
