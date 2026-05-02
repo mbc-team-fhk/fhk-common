@@ -41,13 +41,20 @@ public final class ApiResponse {
 	}
 
 	/**
-	 * api request 성공 했을 때
-	 * 돌려줄 조회값이 없는 경우
-	 * noContent 호출한다.
+	 * error 코드만 이용해서 httpState에 따른 message 리턴
 	 *
 	 * @return
 	 */
 	public static ResponseEntity<ApiWrapper<?>> error(int resCode) {
 		return ResponseEntity.status(resCode).body(ApiWrapper.error(resCode));
+	}
+
+	/**
+	 * error 코드 + 메세지 리턴
+	 *
+	 * @return
+	 */
+	public static ResponseEntity<ApiWrapper<?>> error(int resCode, String message) {
+		return ResponseEntity.status(resCode).body(ApiWrapper.error(resCode, message));
 	}
 }

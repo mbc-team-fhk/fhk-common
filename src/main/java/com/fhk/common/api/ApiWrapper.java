@@ -51,8 +51,14 @@ public class ApiWrapper<T> {
 
 	// api request 실패했을 때
 	// http 상태코드를 받고
-	// 보편적인 error message 리턴
+	// HttpStatus 에따른 error message 리턴
 	public static ApiWrapper<?> error(int resCode) {
 		return new ApiWrapper<>(false, resCode, HttpStatus.valueOf(resCode).getReasonPhrase(), null);
+	}
+
+	// api request 실패했을 때
+	// error code, message 리턴
+	public static ApiWrapper<?> error(int resCode, String message) {
+		return new ApiWrapper<>(false, resCode, message, null);
 	}
 }
